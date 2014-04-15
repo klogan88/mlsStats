@@ -67,3 +67,7 @@ function drawLocations(){
 	   .on("mouseover", function(d){return showLabel(d.code);})
        .on("mouseout", function(d){return hideLabel();});
 }
+
+function getRadius(loc){	
+	return 10;
+}
