@@ -43,7 +43,7 @@ d3.tsv("data/mlsStats.tsv", type, function(error, data) {
     .append("text")
       .attr("y", -10)
       .style("text-anchor", "middle")
-      .text("Goals!!!");
+      .text("Goals");
 
   svg.selectAll(".bar")
       .data(data)
