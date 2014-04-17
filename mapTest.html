@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+<html lang="en">
 <script src="js/d3.v3.min.js"></script>
 <script src="js/topojson.v1.min.js"></script>
 <script src="js/datamaps.all.min.js"></script>
@@ -5,11 +7,33 @@
 <style>
 	.datamaps-bubble:hover{
 		cursor: pointer;
-		fill: darkred !important;
+	}
+	
+	.bar {
+	  fill: steelblue;
+	}
+
+	.bar:hover {
+	  fill: darkred;
+	}
+
+	.axis {
+	  font: 10px sans-serif;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+	.x.axis path {
+	  display: none;
 	}
 </style>
-<div id="container" style="position: relative; width: 100%; height: 50%; background: rgba(50,50,50,50);"></div>
-<div id="barChart" style="position: relative; width: 100%; height: 50%; background: rgba(0,0,0,0);"></div>
+<div id="map" style="position: relative; width: 100%; height: 100%; background: rgba(0,0,0,0);"></div>
+<div id="barChart" style="position: relative; width: 100%; height: 100%; background: rgba(0,0,0,0);"></div>
 <script type="text/javascript" src="js/goalBar.js"></script>
 <script>
 
@@ -35,7 +59,7 @@
 	];
 	
     var map = new Datamap({
-		element: document.getElementById('container'),
+		element: document.getElementById('map'),
 		scope: 'world',
 		setProjection: function(element) {
 			var projection = d3.geo.equirectangular()
@@ -60,19 +84,18 @@
 	addEvents();
 	
 	function addEvents(){
-		var circles = d3.select("#container > svg").selectAll("circle")
-		   .on("click", function(d) { clickCircle(d); })
-		   .on("mouseover", function(d){ console.log("MOUSEOVER..................." + d.name); })
-		   .on("mouseout", function(d){ console.log("MOUSEOUT..................." + d.name); });
+		var circles = d3.select("#map > svg").selectAll("circle")
+		   .on("click", function(d) { clickCircle(d); });
 	};
 	
 	function clickCircle(d) {
 		console.log("CLICK: "+ d.name);
 		
-		$("#container svg").hide('slow', function() {
-		//d3.selectAll('#map svg').remove();
-    	buildBar();
-    	$('#barChart').show('slow', function() {});   	  	   	
-  	}); 
+		$("#map svg").hide('slow', function() {
+			$("#map").hide();
+			buildBar();
+			$('#barChart svg').show('slow', function() {});   	  		
+		}); 
 	};
 </script>
+</html>
