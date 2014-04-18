@@ -34,6 +34,10 @@ var map = new Datamap({
 		  .projection(projection);
 		
 		return {path: path, projection: projection};
+	},
+	geographyConfig: {
+		highlightOnHover: false,
+		popupOnHover: false
 	}
 });
 
