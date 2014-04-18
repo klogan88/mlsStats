@@ -1,3 +1,5 @@
+$("#barContainer").hide();
+
 var circleRadius = 15;
 
 var teamLocations = [
@@ -56,6 +58,14 @@ map.bubbles(teamLocations, {
 	}
 });
 
+$("#backBtn").click(function() {
+	$("#barContainer").hide('slow', function() {
+		d3.selectAll("#barChart svg").remove();
+		$("#mapContainer").show('slow');
+		$("#map svg").show('slow');
+	})
+});
+
 addEvents();
 
 function addEvents(){
@@ -64,11 +74,9 @@ function addEvents(){
 };
 
 function clickCircle(d) {
-	console.log("CLICK: "+ d.name);
-
-	$("#map svg").hide('slow', function() {
-		$("#map").hide();
+	$("#mapContainer").hide('slow', function() {
 		buildBar();
-		$('#barChart svg').show('slow', function() {});   	  		
+		$("#barContainer").show('slow');
+		$('#barChart svg').show('slow');   	  		
 	}); 
 };
