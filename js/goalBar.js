@@ -57,6 +57,11 @@ function buildBar() {
 		  .attr("height", function(d) { return height - y(d.goals); });
 
 	});
+	
+	d3.tsv("data/DCUseason.tsv", null, function(error, data) {
+		console.log("got the data.......");
+		console.log(data);
+	});
 };
 
 function type(d) {
