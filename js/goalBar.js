@@ -62,7 +62,7 @@ function buildBar() {
 function buildSeasonTable() {
 	d3.tsv("data/DCUseason.tsv", null, function(error, data) {
 
-		var columns = ["match", "date", "hteam", "result", "ateam", "loc", "m"];
+		var columns = ["match", "date", "hteam", "result", "ateam", "loc"];
 		var table = d3.select("#seasonTable").append("table"),
 			thead = table.append("thead"),
 			tbody = table.append("tbody");
