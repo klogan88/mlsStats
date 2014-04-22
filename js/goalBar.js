@@ -57,12 +57,39 @@ function buildBar() {
 		  .attr("height", function(d) { return height - y(d.goals); });
 
 	});
-	
-	d3.tsv("data/DCUseason.tsv", null, function(error, data) {
-		console.log("got the data.......");
-		console.log(data);
-	});
 };
+
+function buildSeasonTable() {
+	d3.tsv("data/DCUseason.tsv", null, function(error, data) {
+
+		var columns = ["match", "date", "hteam", "result", "ateam", "loc", "m"];
+		var table = d3.select("#seasonTable").append("table"),
+			thead = table.append("thead"),
+			tbody = table.append("tbody");
+		
+		thead.append("tr")
+			.selectAll("th")
+			.data(columns)
+			.enter()
+			.append("th")
+				.text(function(column) {return column; });
+			
+		var rows = tbody.selectAll("tr")
+			.data(data)
+			.enter()
+			.append("tr");
+			
+		var cells = rows.selectAll("td")
+			.data(function(row) {
+				return columns.map(function(column) {
+					return {column: column, value: row[column]};
+				});
+			})
+			.enter()
+			.append("td")
+				.text(function(d) { return d.value; });
+	});
+}
 
 function type(d) {
   d.goals = +d.goals;

@@ -1,4 +1,5 @@
 $("#barContainer").hide();
+$("#tableContainer").hide();
 
 var circleRadius = 15;
 
@@ -66,6 +67,8 @@ map.bubbles(teamLocations, {
 $("#backBtn").click(function() {
 	$("#barContainer").hide('slow', function() {
 		d3.selectAll("#barChart svg").remove();
+		$("#tableContainer").hide('slow');
+		d3.selectAll("#seasonTable table").remove();
 		$("#mapContainer").show('slow');
 		$("#map svg").show('slow');
 	})
@@ -81,7 +84,10 @@ function addEvents(){
 function clickCircle(d) {
 	$("#mapContainer").hide('slow', function() {
 		buildBar();
+		buildSeasonTable();
 		$("#barContainer").show('slow');
-		$('#barChart svg').show('slow');   	  		
+		$('#barChart svg').show('slow');
+		$("#tableContainer").show('slow');
+		$("#seasonTable table").show('slow');
 	}); 
 };
