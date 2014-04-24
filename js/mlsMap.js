@@ -6,7 +6,7 @@ var circleRadius = 15;
 var teamLocations = [
 	{abbr: 'DCU', name: 'D.C. United', latitude: 38.8951, longitude: -77.0367, radius: circleRadius, fillKey: 'east'},
 	{abbr: 'NYRB', name: 'New York Red Bulls', latitude: 40.6700, longitude: -73.9400, radius: circleRadius, fillKey: 'east'},
-	{abbr: 'PHI', name: 'Philidelphia Union', latitude: 39.9500, longitude: -75.1700, radius: circleRadius, fillKey: 'east'},
+	{abbr: 'PHI', name: 'Philadelphia Union', latitude: 39.9500, longitude: -75.1700, radius: circleRadius, fillKey: 'east'},
 	{abbr: 'CLB', name: 'Columbus Crew', latitude: 39.9833, longitude: -82.9833, radius: circleRadius, fillKey: 'east'},
 	{abbr: 'SKC', name: 'Sporting Kansas City', latitude: 39.0997, longitude: -94.5786, radius: circleRadius, fillKey: 'east'},
 	{abbr: 'CHI', name: 'Chicago Fire', latitude: 41.8819, longitude: -87.6278, radius: circleRadius, fillKey: 'east'},
