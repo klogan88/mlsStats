@@ -30,6 +30,50 @@
   margin: auto;
 }
 
+#seasonTable table {
+	border-collapse: collapse;
+}
+#seasonTable  tr td{
+	border-top: 1px solid #000;
+	padding: 10px;
+}
+
+#seasonTable  tr td:nth-child(6n + 1){
+	text-align: right;
+}
+
+#seasonTable  tr td:nth-child(6n + 2){
+	text-align: right;
+}
+
+#seasonTable  tr td:nth-child(6n + 3){
+	text-align: right;
+}
+
+#seasonTable  tr td:nth-child(6n + 4){
+	text-align: center;
+}
+
+#seasonTable  tr td:nth-child(6n + 5){
+	text-align: left;
+}
+
+#seasonTable  tr td:nth-child(6n ){
+	text-align: left;
+}
+
+#seasonTable tr.loss{
+	background-color: #FFCCCC;
+}
+
+#seasonTable tr.win{
+	background-color: #CCFFCC;
+}
+
+#seasonTable tr.draw{
+	background-color: #FFFFCC;
+}
+
 #backBtn{
 	width: 40px;
 	font-family: 'armata', sans serif;

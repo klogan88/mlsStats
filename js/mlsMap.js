@@ -17,9 +17,9 @@ var teamLocations = [
 	{abbr: 'FCD', name: 'FC Dallas', latitude: 32.7758, longitude: -96.7967, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'LAG/CHV', name: 'L.A. Galaxy/Chivas USA', latitude: 34.0500, longitude: -118.2500, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'SJ', name: 'San Jose Earthquakes', latitude: 37.3333, longitude: -121.9000, radius: circleRadius, fillKey: 'west'},
-	{abbr: 'SEA', name: 'Seattle Sounders', latitude: 47.6097, longitude: -122.3331, radius: circleRadius, fillKey: 'west'},
+	{abbr: 'SEA', name: 'Seattle Sounders FC', latitude: 47.6097, longitude: -122.3331, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'POR', name: 'Portland Timbers', latitude: 45.5200, longitude: -122.6819, radius: circleRadius, fillKey: 'west'},
-	{abbr: 'VAN', name: 'Vancouver Whitecaps', latitude: 49.2500, longitude: -123.1000, radius: circleRadius, fillKey: 'west'},
+	{abbr: 'VAN', name: 'Vancouver Whitecaps FC', latitude: 49.2500, longitude: -123.1000, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'RSL', name: 'Real Salt Lake', latitude: 40.7500, longitude: -111.8833, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'COL', name: 'Colorado Rapids', latitude: 39.7392, longitude: -104.9847, radius: circleRadius, fillKey: 'west'}
 ];
@@ -84,7 +84,7 @@ function addEvents(){
 function clickCircle(d) {
 	$("#mapContainer").hide('slow', function() {
 		buildBar();
-		buildSeasonTable();
+		buildSeasonTable(d);
 		$("#barContainer").show('slow');
 		$('#barChart svg').show('slow');
 		$("#tableContainer").show('slow');

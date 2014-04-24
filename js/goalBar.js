@@ -59,25 +59,27 @@ function buildBar() {
 	});
 };
 
-function buildSeasonTable() {
-	d3.tsv("data/DCUseason.tsv", null, function(error, data) {
+function buildSeasonTable(teamData) {
 
+	d3.tsv("data/" + teamData.abbr + "season.tsv", null, function(error, data) {
+
+		console.log(teamData);
+		processResults(data, teamData);
+		
+		console.log("After process..............");
+		console.log(data);
+		
 		var columns = ["match", "date", "hteam", "result", "ateam", "loc"];
 		var table = d3.select("#seasonTable").append("table"),
-			thead = table.append("thead"),
 			tbody = table.append("tbody");
-		
-		thead.append("tr")
-			.selectAll("th")
-			.data(columns)
-			.enter()
-			.append("th")
-				.text(function(column) {return column; });
 			
 		var rows = tbody.selectAll("tr")
 			.data(data)
 			.enter()
-			.append("tr");
+			.append("tr")
+				.attr("class", function(d) { 
+					return d.outcome; 
+				});
 			
 		var cells = rows.selectAll("td")
 			.data(function(row) {
@@ -87,9 +89,37 @@ function buildSeasonTable() {
 			})
 			.enter()
 			.append("td")
-				.text(function(d) { return d.value; });
+				.text(function(d) { return d.value.trim(); });
 	});
 }
+
+//Determines which games were wins or losses for the selected team
+function processResults(data, teamData) {
+	var teamName = teamData.name;
+	var i = 0;
+	var score = [];
+	var res = 0;
+	
+	for(i = 0; i < data.length; i++) {
+		score = data[i].result.trim().split("");
+		
+		var t = data[i].hteam.trim();
+		if(teamName === data[i].hteam.trim()) {
+			res = Number(score[0]) - Number(score[2]);
+		} else {
+			res = Number(score[2]) - Number(score[0]);
+		}
+		
+		if(res < 0) {
+			data[i].outcome = "loss";
+		} else if(res > 0) {
+			data[i].outcome = "win";
+		} else {
+			data[i].outcome = "draw";
+		}
+	}
+	console.log(data);
+};
 
 function type(d) {
   d.goals = +d.goals;
