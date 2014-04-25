@@ -15,16 +15,32 @@
 	<script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
 	<div id="container">
 		<div id="mapContainer">
-			<div id="map" style="position: fixed; width: 100%; height: 100%;"></div>
+			<div id="map"></div>
 		</div>
 		<div id="barContainer">
 			<div id="backBtn">Back</div>
-			<div id="barChart" style="position: relative; width: 100%; height: 100%;"></div>
+			<div id="barChart"></div>
 		</div>
 		<div id="tableContainer">
 			<div id="seasonTable"></div>
 		</div>
+		<div id="selectorDialog">
+			<form id="dialogForm">
+				<div id="radioContainer">
+					<div id="labelContainer">
+						<label for="team">Select a team</label>
+					</div>
+					<input type="radio" name="team" value="LAG" id="lagRadio">L.A. Galaxy</input>
+					<input type="radio" name="team" value="CHV" id ="chvRadio">Chivas USA</input>
+				</div>
+				<div id="btnContainer">
+					<span id="cancelBtn">Cancel</span>
+					<span id="okBtn">Okay</span>
+				</div>
+			</form>
+		</div>
 	</div>
+	<div id="overlay"></div>
 	<script type="text/javascript" src="js/goalBar.js"></script>
 	<script type="text/javascript" src="js/mlsMap.js"></script>
 </body>

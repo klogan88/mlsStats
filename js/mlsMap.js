@@ -15,13 +15,18 @@ var teamLocations = [
 	{abbr: 'NE', name: 'New England Revolution', latitude: 42.3581, longitude: -71.0636, radius: circleRadius, fillKey: 'east'},
 	{abbr: 'HOU', name: 'Houston Dynamo', latitude: 29.7628, longitude: -95.3831, radius: circleRadius, fillKey: 'east'}, 
 	{abbr: 'FCD', name: 'FC Dallas', latitude: 32.7758, longitude: -96.7967, radius: circleRadius, fillKey: 'west'},
-	{abbr: 'LAG/CHV', name: 'L.A. Galaxy/Chivas USA', latitude: 34.0500, longitude: -118.2500, radius: circleRadius, fillKey: 'west'},
+	{abbr: 'LAG/CHV', name: 'Los Angeles Galaxy/Chivas USA', latitude: 34.0500, longitude: -118.2500, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'SJ', name: 'San Jose Earthquakes', latitude: 37.3333, longitude: -121.9000, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'SEA', name: 'Seattle Sounders FC', latitude: 47.6097, longitude: -122.3331, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'POR', name: 'Portland Timbers', latitude: 45.5200, longitude: -122.6819, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'VAN', name: 'Vancouver Whitecaps FC', latitude: 49.2500, longitude: -123.1000, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'RSL', name: 'Real Salt Lake', latitude: 40.7500, longitude: -111.8833, radius: circleRadius, fillKey: 'west'},
 	{abbr: 'COL', name: 'Colorado Rapids', latitude: 39.7392, longitude: -104.9847, radius: circleRadius, fillKey: 'west'}
+];
+
+var chvLaData = [
+	{abbr: 'LAG', name: 'Los Angeles Galaxy', fillKey: 'west'},
+	{abbr: 'CHV', name: 'Chivas USA', fillKey: 'west'}
 ];
 
 var map = new Datamap({
@@ -71,7 +76,23 @@ $("#backBtn").click(function() {
 		d3.selectAll("#seasonTable table").remove();
 		$("#mapContainer").show('slow');
 		$("#map svg").show('slow');
-	})
+	});
+});
+
+$("#okBtn").click(function() {
+	if($("#lagRadio").prop("checked") === true) {
+		openMap(chvLaData[0]);
+	} else {
+		openMap(chvLaData[1]);
+	}
+	
+	$("#selectorDialog").fadeOut();
+	$("#overlay").fadeOut();
+});
+
+$("#cancelBtn").click(function() {
+	$("#selectorDialog").fadeOut();
+	$("#overlay").fadeOut();
 });
 
 addEvents();
@@ -82,6 +103,16 @@ function addEvents(){
 };
 
 function clickCircle(d) {
+
+	console.log(d);
+	if(d.abbr === "LAG/CHV") {
+		openDialog();		
+	} else {
+		openMap(d); 
+	}
+};
+
+function openMap(d) {
 	$("#mapContainer").hide('slow', function() {
 		buildBar();
 		buildSeasonTable(d);
@@ -91,3 +122,17 @@ function clickCircle(d) {
 		$("#seasonTable table").show('slow');
 	}); 
 };
+
+function openDialog() {
+	var body = $(window),
+		bodyWidth = body.width(),
+		bodyHeight = body.height(),
+		selector = $("#selectorDialog"),
+		dialogWidth = selector.width(),
+		dialogHeight = selector.height(),
+		left = (bodyWidth - dialogWidth)/2,
+		top = (bodyHeight - dialogHeight)/2;
+		
+	selector.css('left', left).css('top', top).fadeIn();
+	$("#overlay").fadeIn();
+}
