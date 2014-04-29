@@ -1,8 +1,8 @@
-function buildBar() {
+function buildBar(id, dataUrl, yAxisName, xAxisName) {
 
 	var margin = {top: 20, right: 20, bottom: 50, left: 40},
-    width = 1000 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
+    width = 650 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal()
 		.rangeRoundBands([0, width], .1);
@@ -19,15 +19,15 @@ function buildBar() {
 		.orient("left")
 		.ticks(10);
 
-	var svg = d3.select("#barChart").insert("svg:svg")
+	var svg = d3.select(id).insert("svg:svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom)
 	  .append("g")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	d3.tsv("data/mlsStats.tsv", type, function(error, data) {
-	  x.domain(data.map(function(d) { return d.abbr; }));
-	  y.domain([0, d3.max(data, function(d) { return d.goals; })]);
+	d3.tsv("data/" + dataUrl, type, function(error, data) {
+	  x.domain(data.map(function(d) { return d.x; }));
+	  y.domain([0, d3.max(data, function(d) { return d.y; })]);
 
 	  svg.append("g")
 		  .attr("class", "x axis")
@@ -37,7 +37,7 @@ function buildBar() {
 		  .attr("x", width/2)
 		  .attr("y", 40)
 		  .style("text-anchor", "end")
-		  .text("Team");
+		  .text(xAxisName);
 
 	  svg.append("g")
 		  .attr("class", "y axis")
@@ -45,16 +45,16 @@ function buildBar() {
 		.append("text")
 		  .attr("y", -10)
 		  .style("text-anchor", "middle")
-		  .text("Goals");
+		  .text(yAxisName);
 
 	  svg.selectAll(".bar")
 		  .data(data)
 		.enter().append("rect")
 		  .attr("class", "bar")
-		  .attr("x", function(d) { return x(d.abbr); })
+		  .attr("x", function(d) { return x(d.x); })
 		  .attr("width", x.rangeBand())
-		  .attr("y", function(d) { return y(d.goals); })
-		  .attr("height", function(d) { return height - y(d.goals); });
+		  .attr("y", function(d) { return y(d.y); })
+		  .attr("height", function(d) { return height - y(d.y); });
 
 	});
 };
@@ -63,11 +63,7 @@ function buildSeasonTable(teamData) {
 
 	d3.tsv("data/" + teamData.abbr + "season.tsv", null, function(error, data) {
 
-		console.log(teamData);
 		processResults(data, teamData);
-		
-		console.log("After process..............");
-		console.log(data);
 		
 		var columns = ["match", "date", "hteam", "result", "ateam", "loc"];
 		var table = d3.select("#seasonTable").append("table"),
@@ -118,10 +114,9 @@ function processResults(data, teamData) {
 			data[i].outcome = "draw";
 		}
 	}
-	console.log(data);
 };
 
 function type(d) {
-  d.goals = +d.goals;
+  d.y = +d.y;
   return d;
 }

@@ -7,7 +7,7 @@
 </head>
 <body>
 	<header>
-		MLS Statistics Map
+		Major League Soccer Statistics Map of the 2013 Season
 	</header>
 	<script type="text/javascript" src="js/d3.v3.min.js"></script>
 	<script type="text/javascript" src="js/topojson.v1.min.js"></script>
@@ -17,12 +17,22 @@
 		<div id="mapContainer">
 			<div id="map"></div>
 		</div>
-		<div id="barContainer">
+		<div id="statsContainer">
 			<div id="backBtn">Back</div>
-			<div id="barChart"></div>
-		</div>
-		<div id="tableContainer">
-			<div id="seasonTable"></div>
+			<div id="barContainer">
+				<div id="ptsBarContainer">
+					<div id="ptsBarLabel">Points Earned</div>
+					<div id="ptsBarChart"></div>
+				</div>
+				<div id="goalBarContainer">
+					<div id="goalBarLabel">Goals Scored</div>
+					<div id="goalBarChart"></div>
+				</div>
+			</div>
+			<div id="tableContainer">
+				<div id="tableLabel">Regular Season Results</div>
+				<div id="seasonTable"></div>
+			</div>
 		</div>
 		<div id="selectorDialog">
 			<form id="dialogForm">
@@ -30,7 +40,7 @@
 					<div id="labelContainer">
 						<label for="team">Select a team</label>
 					</div>
-					<input type="radio" name="team" value="LAG" id="lagRadio">L.A. Galaxy</input>
+					<input type="radio" name="team" value="LAG" id="lagRadio" checked="checked">L.A. Galaxy</input>
 					<input type="radio" name="team" value="CHV" id ="chvRadio">Chivas USA</input>
 				</div>
 				<div id="btnContainer">

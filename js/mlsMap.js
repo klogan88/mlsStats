@@ -1,5 +1,4 @@
-$("#barContainer").hide();
-$("#tableContainer").hide();
+$("#statsContainer").hide();
 
 var circleRadius = 15;
 
@@ -70,9 +69,9 @@ map.bubbles(teamLocations, {
 });
 
 $("#backBtn").click(function() {
-	$("#barContainer").hide('slow', function() {
-		d3.selectAll("#barChart svg").remove();
-		$("#tableContainer").hide('slow');
+	$("#statsContainer").fadeOut('slow', function() {
+		d3.selectAll("#goalBarChart svg").remove();
+		d3.selectAll("#ptsBarChart svg").remove();
 		d3.selectAll("#seasonTable table").remove();
 		$("#mapContainer").show('slow');
 		$("#map svg").show('slow');
@@ -104,7 +103,6 @@ function addEvents(){
 
 function clickCircle(d) {
 
-	console.log(d);
 	if(d.abbr === "LAG/CHV") {
 		openDialog();		
 	} else {
@@ -114,12 +112,10 @@ function clickCircle(d) {
 
 function openMap(d) {
 	$("#mapContainer").hide('slow', function() {
-		buildBar();
+		buildBar("#goalBarChart", "mlsStats.tsv", "Goals", "Team");
+		buildBar("#ptsBarChart", "mlsPts.tsv", "Points", "Team");
 		buildSeasonTable(d);
-		$("#barContainer").show('slow');
-		$('#barChart svg').show('slow');
-		$("#tableContainer").show('slow');
-		$("#seasonTable table").show('slow');
+		$("#statsContainer").fadeIn('slow');
 	}); 
 };
 
@@ -135,4 +131,9 @@ function openDialog() {
 		
 	selector.css('left', left).css('top', top).fadeIn();
 	$("#overlay").fadeIn();
-}
+};
+
+function type(d) {
+  d.goals = +d.goals;
+  return d;
+};
