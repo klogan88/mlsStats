@@ -130,7 +130,15 @@ function barClick(data, currTeam) {
 
 //Determines which games were wins or losses for the selected team
 function processResults(data, teamData) {
-	var teamName = teamData.name;
+
+	var teamName = ""
+	
+	if(teamData.name) {
+		teamName = teamData.name;
+	} else {
+		teamName = teamData.Club;
+	}
+	
 	var i = 0;
 	var score = [];
 	var res = 0;
