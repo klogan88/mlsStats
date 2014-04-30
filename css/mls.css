@@ -11,8 +11,13 @@ body {
   fill: steelblue;
 }
 
+.selectedBar {
+  fill: darkred;
+}
+
 .bar:hover {
   fill: darkred;
+  cursor: pointer;
 }
 
 .axis {
@@ -41,13 +46,24 @@ body {
 	height: 100%;
 }
 
+#teamLabel {
+	padding-bottom: 10px;
+	padding-top: 10px;
+	/*text-align: center;*/
+	font-size: 20px;
+}
+
 #goalBarContainer, #ptsBarContainer {
 	float: left;
 }
 
-#seasonTable, #tableLabel {
+#seasonTable table, #tableLabel{
 	width: 50%;
     margin: 0 auto;
+}
+
+#barContainer {
+	width: 100px;
 }
 
 #tableLabel  {
@@ -55,8 +71,6 @@ body {
 }
 
 #seasonTable  {
-	width: 50%;
-    margin: 0 auto;
 	font-size: 13px;
 }
 
@@ -113,7 +127,7 @@ body {
 }
 
 #backBtn {
-	margin: 5px;
+	margin-top: 8px;
 }
 
 #backBtn:hover, #okBtn:hover, #cancelBtn:hover{

@@ -112,8 +112,9 @@ function clickCircle(d) {
 
 function openMap(d) {
 	$("#mapContainer").hide('slow', function() {
-		buildBar("#goalBarChart", "mlsStats.tsv", "Goals", "Team");
-		buildBar("#ptsBarChart", "mlsPts.tsv", "Points", "Team");
+		$("#teamLabel").text(d.name);
+		buildBar("#goalBarChart", "mlsStats.tsv", d.abbr, "Goals", "Team");
+		buildBar("#ptsBarChart", "mlsPts.tsv", d.abbr, "Points", "Team");
 		buildSeasonTable(d);
 		$("#statsContainer").fadeIn('slow');
 	}); 
@@ -131,9 +132,4 @@ function openDialog() {
 		
 	selector.css('left', left).css('top', top).fadeIn();
 	$("#overlay").fadeIn();
-};
-
-function type(d) {
-  d.goals = +d.goals;
-  return d;
 };

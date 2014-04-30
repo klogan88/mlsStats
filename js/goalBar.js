@@ -1,8 +1,8 @@
-function buildBar(id, dataUrl, yAxisName, xAxisName) {
+function buildBar(id, dataUrl, selectedTeam, yAxisName, xAxisName) {
 
 	var margin = {top: 20, right: 20, bottom: 50, left: 40},
-    width = 650 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 750 - margin.left - margin.right,
+    height = 350 - margin.top - margin.bottom;
 
 	var x = d3.scale.ordinal()
 		.rangeRoundBands([0, width], .1);
@@ -50,18 +50,32 @@ function buildBar(id, dataUrl, yAxisName, xAxisName) {
 	  svg.selectAll(".bar")
 		  .data(data)
 		.enter().append("rect")
-		  .attr("class", "bar")
+		  .attr("class", function(d) {
+				if(d.x === selectedTeam) {
+					return "selectedBar";
+				}
+				
+				return "bar";
+		  })
 		  .attr("x", function(d) { return x(d.x); })
 		  .attr("width", x.rangeBand())
 		  .attr("y", function(d) { return y(d.y); })
-		  .attr("height", function(d) { return height - y(d.y); });
-
+		  .attr("height", function(d) { return height - y(d.y); })
+		  .on("click", function(d) { barClick(d); });
 	});
 };
 
 function buildSeasonTable(teamData) {
 
-	d3.tsv("data/" + teamData.abbr + "season.tsv", null, function(error, data) {
+	var abbr = "";
+	
+	if(teamData.abbr) {
+		abbr = teamData.abbr;
+	} else {
+		abbr = teamData.x;
+	}
+	
+	d3.tsv("data/" + abbr + "season.tsv", null, function(error, data) {
 
 		processResults(data, teamData);
 		
@@ -87,7 +101,32 @@ function buildSeasonTable(teamData) {
 			.append("td")
 				.text(function(d) { return d.value.trim(); });
 	});
-}
+};
+
+function barClick(data, currTeam) {
+
+	d3.selectAll(".selectedBar")
+		.attr("class", "bar");
+	
+	d3.selectAll(".bar")
+		.attr("class", function(d) {
+			if(d.x === data.x) {
+				return "selectedBar";
+			} else {
+				return "bar";
+			}
+		});
+	
+	$("#teamLabel").text(data.Club);
+	
+	$("#tableContainer").fadeOut('slow', function() {
+		$("#teamLabel").text(data.Club);
+		d3.selectAll("#seasonTable table").remove();
+		buildSeasonTable(data);
+	});
+	
+	$("#tableContainer").fadeIn('slow');
+};
 
 //Determines which games were wins or losses for the selected team
 function processResults(data, teamData) {
@@ -119,4 +158,4 @@ function processResults(data, teamData) {
 function type(d) {
   d.y = +d.y;
   return d;
-}
+};
