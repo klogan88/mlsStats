@@ -61,8 +61,37 @@ function buildBar(id, dataUrl, selectedTeam, yAxisName, xAxisName) {
 		  .attr("width", x.rangeBand())
 		  .attr("y", function(d) { return y(d.y); })
 		  .attr("height", function(d) { return height - y(d.y); })
-		  .on("click", function(d) { barClick(d); });
+		  .on("click", function(d) { barClick(d); })
+		  .on("mouseover", function(d){return showLabel(d);})
+		  .on("mouseout", function(d){return hideLabel();});
 	});
+};
+
+//pop up on mouseover in the map view
+function showLabel(d){
+	var info = "<span id='popLoc'>" + d.Club + "</span><br/><hr><span id='DPClabel'>Goals: </span><span id='DPC'>" + d.y + "</span>";
+	var windowWidth = $(window).width();
+	$('#barTool').html(info).show();
+	$(this).mousemove(function (e) {
+		var testWidth = e.pageX + 20 + 320;
+		if (windowWidth > testWidth) {
+			var x = e.pageX + 20;
+			var y = e.pageY + 20;
+		}
+		else {
+			var x = e.pageX - 330;
+			var y = e.pageY + 20;
+		}
+		
+		$('#barTool').css({
+			top:y + 'px',
+			left:x + 'px'
+		});
+	})
+};
+
+function hideLabel(){	
+	$("#barTool").hide();
 };
 
 function buildSeasonTable(teamData) {
