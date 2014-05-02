@@ -67,9 +67,15 @@ function buildBar(id, dataUrl, selectedTeam, yAxisName, xAxisName) {
 	});
 };
 
-//pop up on mouseover in the map view
+//Tooltip on mouseover in the bar charts.
 function showLabel(d){
-	var info = "<span id='popLoc'>" + d.Club + "</span><br/><hr><span id='DPClabel'>Goals: </span><span id='DPC'>" + d.y + "</span>";
+
+	var label = "Goals";
+	if(d.goals) {
+		label = "Points";
+	}
+	
+	var info = "<span id='clubLabel'>" + d.Club + "</span><br/><hr><span id='typeLabel'>" + label + ": </span><span id='typeValue'>" + d.y + "</span>";
 	var windowWidth = $(window).width();
 	$('#barTool').html(info).show();
 	$(this).mousemove(function (e) {

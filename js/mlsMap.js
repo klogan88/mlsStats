@@ -73,8 +73,8 @@ $("#backBtn").click(function() {
 		d3.selectAll("#goalBarChart svg").remove();
 		d3.selectAll("#ptsBarChart svg").remove();
 		d3.selectAll("#seasonTable table").remove();
-		$("#mapContainer").show('slow');
-		$("#map svg").show('slow');
+		$("#mapContainer").fadeIn('slow');
+		$("#map svg").fadeIn('slow');
 	});
 });
 
@@ -111,7 +111,7 @@ function clickCircle(d) {
 };
 
 function openMap(d) {
-	$("#mapContainer").hide('slow', function() {
+	$("#mapContainer").fadeOut('slow', function() {
 		$("#teamLabel").text(d.name);
 		buildBar("#goalBarChart", "mlsStats.tsv", d.abbr, "Goals", "Team");
 		buildBar("#ptsBarChart", "mlsPts.tsv", d.abbr, "Points", "Team");
