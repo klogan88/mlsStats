@@ -40,18 +40,6 @@ body {
   margin: auto;
 }
 
-.mapc {
-    height: 500px;
-    margin: 0 auto;
-    position: relative;
-    width: 750px;
-}
-
-.tall {
-    height: 750px;
-    width: 1600px;
-}
-
 @media (max-width: 980px) {
 
 	#map{
@@ -71,34 +59,30 @@ body {
 #teamLabel {
 	padding-bottom: 10px;
 	padding-top: 10px;
-	/*text-align: center;*/
 	font-size: 20px;
 }
 
-#goalBarContainer, #ptsBarContainer {
+#tableContainer {
+	padding-left: 15px;
 	float: left;
-}
-
-#seasonTable table, #tableLabel{
-	width: 50%;
-    margin: 0 auto;
 }
 
 #barContainer {
 	width: 50%;
+	float: left;
 }
 
 #tableLabel  {
 	padding-bottom: 5px;
-	/*white-space: nowrap;*/
 }
 
 #seasonTable  {
-	font-size: 13px;
+	font-size: 11.5px;
 }
 
 #seasonTable table {
 	border-collapse: collapse;
+	width: 700px;
 }
 
 #seasonTable  tr td{

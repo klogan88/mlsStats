@@ -1,7 +1,10 @@
+//Stats view is initally hidden.
 $("#statsContainer").hide();
 
+//Radius for the circles on the map.
 var circleRadius = 15;
 
+//The team location data for placing the bubbles on the map.
 var teamLocations = [
 	{abbr: 'DCU', name: 'D.C. United', latitude: 38.8951, longitude: -77.0367, radius: circleRadius, fillKey: 'east'},
 	{abbr: 'NYRB', name: 'New York Red Bulls', latitude: 40.6700, longitude: -73.9400, radius: circleRadius, fillKey: 'east'},
@@ -23,11 +26,13 @@ var teamLocations = [
 	{abbr: 'COL', name: 'Colorado Rapids', latitude: 39.7392, longitude: -104.9847, radius: circleRadius, fillKey: 'west'}
 ];
 
+//Separated data for LA Galaxy and Chivas to use later since they are located in the same city/stadium.
 var chvLaData = [
 	{abbr: 'LAG', name: 'Los Angeles Galaxy', fillKey: 'west'},
 	{abbr: 'CHV', name: 'Chivas USA', fillKey: 'west'}
 ];
 
+//Set up the datamap to be focuse on USA and Canada, the countries MLS is located in.
 var map = new Datamap({
 	element: document.getElementById('map'),
 	scope: 'world',
@@ -53,6 +58,7 @@ var map = new Datamap({
     },
 });
 
+//Populate the bubbles on the map.
 map.bubbles(teamLocations, {
 	fillOpacity: 1.00,
 	popupTemplate: function(geo, data) {
@@ -68,6 +74,7 @@ map.bubbles(teamLocations, {
 	}
 });
 
+//Add click event for the back button when on the stats view.  Goes back to map view.
 $("#backBtn").click(function() {
 	$("#statsContainer").fadeOut('slow', function() {
 		d3.selectAll("#goalBarChart svg").remove();
@@ -78,39 +85,45 @@ $("#backBtn").click(function() {
 	});
 });
 
+//Add click event for Okay button to selecte LA or Chivas when selected.
 $("#okBtn").click(function() {
 	if($("#lagRadio").prop("checked") === true) {
-		openMap(chvLaData[0]);
+		openStats(chvLaData[0]);
 	} else {
-		openMap(chvLaData[1]);
+		openStats(chvLaData[1]);
 	}
 	
 	$("#selectorDialog").fadeOut();
 	$("#overlay").fadeOut();
 });
 
+//Add click event for cancel button to pick neither LA or Chivas and return to map.
 $("#cancelBtn").click(function() {
 	$("#selectorDialog").fadeOut();
 	$("#overlay").fadeOut();
 });
 
+//Add the events to the circles so that they are clickable on the map.
 addEvents();
 
+//Implement click events on the bubbles.
 function addEvents(){
 	var circles = d3.select("#map > svg").selectAll("circle")
 	   .on("click", function(d) { clickCircle(d); });
 };
 
+//Depending on circle clicked, either open LAG/CHV dialog or stats view.
 function clickCircle(d) {
 
 	if(d.abbr === "LAG/CHV") {
 		openDialog();		
 	} else {
-		openMap(d); 
+		openStats(d); 
 	}
 };
 
-function openMap(d) {
+//Opens stats view and hides map view.
+function openStats(d) {
 	$("#mapContainer").fadeOut('slow', function() {
 		$("#teamLabel").text(d.name);
 		buildBar("#goalBarChart", "mlsStats.tsv", d.abbr, "Goals", "Team");
@@ -120,6 +133,7 @@ function openMap(d) {
 	}); 
 };
 
+//Open the dialog to select either LA or Chivas.
 function openDialog() {
 	var body = $(window),
 		bodyWidth = body.width(),

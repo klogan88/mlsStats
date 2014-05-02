@@ -1,3 +1,4 @@
+//Builds the bar chart.  Can pass in args to select they type of data and axis names for the bar chart.
 function buildBar(id, dataUrl, selectedTeam, yAxisName, xAxisName) {
 
 	var margin = {top: 20, right: 20, bottom: 50, left: 40},
@@ -96,10 +97,12 @@ function showLabel(d){
 	})
 };
 
+//Hides the bar tooltip.
 function hideLabel(){	
 	$("#barTool").hide();
 };
 
+//Builds the season table for the particular team selected.
 function buildSeasonTable(teamData) {
 
 	var abbr = "";
@@ -138,6 +141,7 @@ function buildSeasonTable(teamData) {
 	});
 };
 
+//Implements the bar click functionality for the bar charts.  Will populate the season data based on bar clicked.
 function barClick(data, currTeam) {
 
 	d3.selectAll(".selectedBar")
@@ -198,6 +202,7 @@ function processResults(data, teamData) {
 	}
 };
 
+//y data is treated as Number type.
 function type(d) {
   d.y = +d.y;
   return d;
