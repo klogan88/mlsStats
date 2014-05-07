@@ -107,9 +107,6 @@ body {
 	background-color: #FFFFCC;
 }
 
-#dialogForm {
-}
-
 #backBtn, #okBtn, #cancelBtn{
 	width: 40px;
 	padding: 5px;
@@ -178,14 +175,6 @@ body {
 	display: none;
 }
 
-@media (max-width: 980px) {
-
-	#map{
-		height: 300px;
-		width: 100%;
-	}
-}
-
-@media screen and (max-width: 1320px) {
+@media screen and (max-width: 1500px) {
 	#tableContainer, #barContainer { float: none; }
 }
