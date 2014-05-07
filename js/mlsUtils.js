@@ -1,4 +1,4 @@
-define([], function() {
+define(['jquery'], function($) {
 
 	//Tooltip on mouseover in the bar charts.
 	function showLabel(d){
@@ -13,20 +13,22 @@ define([], function() {
 		$('#barTool').html(info).show();
 		$(this).mousemove(function (e) {
 			var testWidth = e.pageX + 20 + 320;
+			var x;
+			var y;
 			if (windowWidth > testWidth) {
-				var x = e.pageX + 20;
-				var y = e.pageY + 20;
+				x = e.pageX + 20;
+				y = e.pageY + 20;
 			}
 			else {
-				var x = e.pageX - 330;
-				var y = e.pageY + 20;
+				x = e.pageX - 330;
+				y = e.pageY + 20;
 			}
 			
 			$('#barTool').css({
 				top:y + 'px',
 				left:x + 'px'
 			});
-		})
+		});
 	};
 
 	//Hides the bar tooltip.
@@ -35,7 +37,7 @@ define([], function() {
 	};
 
 	//Implements the bar click functionality for the bar charts.  Will populate the season data based on bar clicked.
-	function barClick(data, currTeam) {
+	function barClick(data) {
 
 		d3.selectAll(".selectedBar")
 			.attr("class", "bar");
@@ -146,7 +148,7 @@ define([], function() {
 		height = 350 - margin.top - margin.bottom;
 
 		var x = d3.scale.ordinal()
-			.rangeRoundBands([0, width], .1);
+			.rangeRoundBands([0, width], 0.1);
 
 		var y = d3.scale.linear()
 			.range([height, 0]);

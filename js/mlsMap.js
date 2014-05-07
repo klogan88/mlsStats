@@ -64,7 +64,7 @@ require({
 				defaultFill: "#ABDDA4",
 				east: '#5FABED',
 				west: '#EDA15F'
-			},
+			}
 		});
 
 		//Populate the bubbles on the map.
@@ -74,7 +74,7 @@ require({
 			  var imageHTML = "";
 			  var imageFile = "";
 			  if(data.abbr === "LAG/CHV") {
-				imageHTML = "<div><img src='img/LAG.png' width='50px' height='50px' class='centerImage'><img src='img/CHV.png' width='50px' height='50px' class='centerImage'></div>"
+				imageHTML = "<div><img src='img/LAG.png' width='50px' height='50px' class='centerImage'><img src='img/CHV.png' width='50px' height='50px' class='centerImage'></div>";
 			  } else {
 				imageFile = "img/" + data.abbr + ".png";
 				imageHTML = "<img src='" + imageFile + "' width='50px' height='50px' class='centerImage'>";
@@ -117,7 +117,7 @@ require({
 
 		//Implement click events on the bubbles.
 		function addEvents(){
-			var circles = d3.select("#map > svg").selectAll("circle")
+			d3.select("#map > svg").selectAll("circle")
 			   .on("click", function(d) { clickCircle(d); });
 		};
 
