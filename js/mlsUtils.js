@@ -158,13 +158,13 @@ function barClick(data, currTeam) {
 	
 	$("#teamLabel").text(data.Club);
 	
-	$("#tableContainer").fadeOut('slow', function() {
+	$("#seasonTable").fadeOut('slow', function() {
 		$("#teamLabel").text(data.Club);
 		d3.selectAll("#seasonTable table").remove();
 		buildSeasonTable(data);
 	});
 	
-	$("#tableContainer").fadeIn('slow');
+	$("#seasonTable").fadeIn('slow');
 };
 
 //Determines which games were wins or losses for the selected team
